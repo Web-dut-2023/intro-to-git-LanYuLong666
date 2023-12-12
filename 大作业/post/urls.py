@@ -1,8 +1,12 @@
 #coding=utf-8
 
-from django.urls import re_path
-from . import views
+from django.conf.urls import url
+import views
 
 urlpatterns=[
-    re_path(r'^$',views.queryAll)
+    url(r'^$',views.queryAll),
+    url(r'^page/(\d+)$',views.queryAll),
+    url(r'^post/(\d+)$',views.detail),
+    url(r'^category/(\d+)$',views.queryPostByCid),
+    url(r'^archive/(\d+)/(\d+)$',views.queryPostByCreated),
 ]

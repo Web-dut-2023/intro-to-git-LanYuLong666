@@ -13,10 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.urls import  include,re_path
+from django.urls import path, include
 from django.contrib import admin
 
+from blog.settings import DEBUG, MEDIA_ROOT
+
 urlpatterns = [
-    re_path(r'^admin/', admin.site.urls),
-    re_path(r'^', include('post.urls')),
+   path('^admin/', admin.site.urls),
+   path('^', include('post.urls')),
+   path('ckeditor/', include('ckeditor_uploader.urls')),
+   path('search/',include('haystack.urls'))
+
 ]
+
+
+from django.views.static import serve
+if DEBUG:
+    urlpatterns+=url(r'^media/(?P<path>.*)/$', serve, {"document_root": MEDIA_ROOT}),
